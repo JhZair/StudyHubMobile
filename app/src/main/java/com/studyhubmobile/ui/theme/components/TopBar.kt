@@ -15,6 +15,35 @@ import androidx.compose.foundation.clickable
 @Composable
 fun TopBar(navController: NavController) {
     var expanded by remember { mutableStateOf(false) }
+    val currentRoute = remember { mutableStateOf<String?>(null) }
+    
+    LaunchedEffect(navController.currentBackStackEntry) {
+        currentRoute.value = navController.currentBackStackEntry?.destination?.route
+    }
+
+    val menuItems = when (currentRoute.value) {
+        "home" -> listOf(
+            "Recursos" to { navController.navigate("recursos") },
+            "Simulacros" to { navController.navigate("simulacro") }
+        )
+        "recursos" -> listOf(
+            "Home" to { navController.navigate("home") },
+            "Simulacros" to { navController.navigate("simulacro") }
+        )
+        "simulacro" -> listOf(
+            "Home" to { navController.navigate("home") },
+            "Recursos" to { navController.navigate("recursos") }
+        )
+        "configuracion" -> listOf(
+            "Configuración" to { /* TODO: Implementar configuración */ },
+            "Cerrar sesión" to { /* TODO: Implementar logout */ }
+        )
+        else -> listOf(
+            "Home" to { navController.navigate("home") },
+            "Recursos" to { navController.navigate("recursos") },
+            "Simulacros" to { navController.navigate("simulacro") }
+        )
+    }
 
     TopAppBar(
         title = {
@@ -27,28 +56,25 @@ fun TopBar(navController: NavController) {
             )
         },
         navigationIcon = {
-            IconButton(onClick = { expanded = true }) {
-                Icon(Icons.Default.Menu, contentDescription = "Menu", tint = Color.White)
-            }
-
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-                DropdownMenuItem(
-                    text = { Text("Recursos") },
-                    onClick = {
-                        expanded = false
-                        navController.navigate("recursos")
+            Box {
+                IconButton(onClick = { expanded = true }) {
+                    Icon(Icons.Default.Menu, contentDescription = "Menu", tint = Color.White)
+                }
+                
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    menuItems.forEach { (text, action) ->
+                        DropdownMenuItem(
+                            text = { Text(text) },
+                            onClick = {
+                                expanded = false
+                                action()
+                            }
+                        )
                     }
-                )
-                DropdownMenuItem(
-                    text = { Text("Simulacros") },
-                    onClick = {
-                        expanded = false
-                        navController.navigate("simulacro")
-                    }
-                )
+                }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
