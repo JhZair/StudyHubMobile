@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
+import com.studyhubmobile.ui.theme.screens.ExamTopBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,12 +32,13 @@ fun ExamScreen(
 ) {
     val context = LocalContext.current
     val courseName = route.substringAfter("exam/")
+    // Remover guiones del nombre del curso
+    val fileName = courseName.replace("-", "")
 
     // Cargar preguntas desde el archivo JSON
     val questions = remember(courseName) {
         try {
-            val fileName = "questions/${courseName.lowercase().replace(" ", "-")}.json"
-            val jsonString = context.assets.open(fileName).bufferedReader().use { reader ->
+            val jsonString = context.assets.open("questions/$fileName.json").bufferedReader().use { reader ->
                 reader.readText()
             }
             Json.decodeFromString<List<Question>>(jsonString)
@@ -48,7 +50,8 @@ fun ExamScreen(
             AlertDialog.Builder(context)
                 .setTitle("Error")
                 .setMessage("No se pudieron cargar las preguntas para el curso ${courseName}.\n" +
-                        "Verifica que el archivo existe en la carpeta assets/questions/")
+                        "Verifica que el archivo existe en la carpeta assets/questions/\n" +
+                        "Nombre buscado: $fileName.json")
                 .setPositiveButton("OK") { _, _ ->
                     navController.popBackStack("simulacro", false)
                 }
@@ -252,14 +255,12 @@ fun ExamScreen(
 
                             // Calcular puntaje
                             val correctAnswers = questions.count { question ->
-                                selectedAnswers[questions.indexOf(question)].toString() == question.respuestaCorrecta.toString()
+                                selectedAnswers[questions.indexOf(question)].toString() == question.respuestaCorrecta
                             }
-
                             Text(
                                 text = "Preguntas correctas: $correctAnswers de ${questions.size}",
                                 style = MaterialTheme.typography.titleMedium
                             )
-
                             Button(
                                 onClick = { 
                                     navController.popBackStack("simulacro", false)

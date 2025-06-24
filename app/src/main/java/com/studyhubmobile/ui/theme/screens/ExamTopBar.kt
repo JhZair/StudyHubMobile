@@ -23,7 +23,8 @@ fun ExamTopBar(
             IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Volver"
+                    contentDescription = "Volver",
+                    tint = Color.White
                 )
             }
         },

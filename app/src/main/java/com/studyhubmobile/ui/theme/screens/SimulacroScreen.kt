@@ -45,7 +45,14 @@ fun SimulacroScreen(navController: NavController) {
     var selectedCourse by remember { mutableStateOf<String?>(null) }
 
     val coursesBySemester = mapOf(
-        1 to listOf("matematicas-i", "fisica-i", "quimica-i"),
+        1 to listOf(
+            "matematicas-i",
+            "Introduccion-a-la-Vida-Universitaria",
+            "Comunicacion",
+            "Estructuras-Discretas-I",
+            "Programacion-de-VideoJuegos",
+            "Metodologia-del-Estudio"
+        ),
         2 to listOf("matematicas-ii", "fisica-ii", "quimica-ii"),
         3 to listOf("matematicas-iii", "fisica-iii", "quimica-iii"),
         4 to listOf("matematicas-iv", "fisica-iv", "quimica-iv"),
@@ -149,8 +156,14 @@ fun SimulacroScreen(navController: NavController) {
                                     CourseButton(
                                         course = course,
                                         selected = selectedCourse == course,
-                                        onClick = {
-                                            // No hacer nada al hacer clic
+                                        onClick = { courseName ->
+                                            // Remove any special characters and replace spaces with hyphens
+                                            val formattedCourseName = courseName
+                                                .replace(" ", "-")
+                                                .replace("ñ", "n")
+                                                .lowercase()
+                                            navController.navigate("exam/$formattedCourseName")
+                                            expandedSemester = null
                                         }
                                     )
                                 }
