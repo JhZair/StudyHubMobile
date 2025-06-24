@@ -4,13 +4,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PersonOff
 import androidx.compose.material3.*
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +29,9 @@ import androidx.navigation.NavController
 import com.studyhubmobile.R
 import com.studyhubmobile.models.UserProfile
 import com.studyhubmobile.models.UserStats
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.unit.IntOffset
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,6 +41,14 @@ fun UserProfileScreen(
     onLogout: () -> Unit,
     onUpdateProfile: (UserProfile) -> Unit
 ) {
+    var showMenu by remember { mutableStateOf(false) }
+    val menuItems = listOf(
+        "Home" to { navController.navigate("home") },
+        "Recursos" to { navController.navigate("recursos") },
+        "Simulacro" to { navController.navigate("simulacro") },
+        "Perfil" to { navController.navigate("perfil") }
+    ) as List<Pair<String, () -> Unit>>
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -46,19 +59,56 @@ fun UserProfileScreen(
                     .fillMaxWidth()
                     .background(Color(0xFF0f172a))
             ) {
-                Text(
-                    text = "StudyHub",
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 8.dp)
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(
+                            onClick = { showMenu = true }
+                        ) {
+                            Icon(Icons.Default.Menu, contentDescription = "Menú", tint = Color.White)
+                        }
+                        Text(
+                            text = "StudyHub",
+                            color = Color.White,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
+
+                    DropdownMenu(
+                        expanded = showMenu,
+                        onDismissRequest = { showMenu = false },
+                        modifier = Modifier
+                            .width(200.dp)
+                            .background(Color(0xFF0f172a))
+                    ) {
+                        menuItems.forEach { (text, action) ->
+                            DropdownMenuItem(
+                                text = { Text(text, color = Color.White) },
+                                onClick = {
+                                    action()
+                                    showMenu = false
+                                }
+                            )
+                        }
+                    }
+                }
             }
         },
         content = { padding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .padding(padding)
                     .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
@@ -178,7 +228,7 @@ fun UserProfileScreen(
                             onClick = { /* Lógica para notificaciones */ }
                         )
                         OptionItem(
-                            icon = Icons.Default.ExitToApp,
+                            icon = Icons.Default.PersonOff,
                             title = "Cerrar sesión",
                             onClick = onLogout
                         )
@@ -187,6 +237,8 @@ fun UserProfileScreen(
             }
         }
     )
+
+
 }
 
 @Composable

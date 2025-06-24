@@ -24,6 +24,7 @@ import com.studyhubmobile.ui.theme.screens.HomeScreen
 import com.studyhubmobile.ui.theme.screens.SimulacroScreen
 import com.studyhubmobile.ui.theme.screens.RecursosScreen
 import com.studyhubmobile.ui.theme.screens.LoginScreen
+import com.studyhubmobile.ui.theme.screens.SignUpScreen
 import com.studyhubmobile.ui.theme.screens.LoadingScreen
 import com.studyhubmobile.ui.theme.screens.UserProfileScreen
 import com.studyhubmobile.models.UserProfile
@@ -130,7 +131,7 @@ fun AppNavigation() {
                     animationSpec = tween(300)
                 ) + fadeOut(animationSpec = tween(300))
             }
-        ) { LoginScreen(navController) }
+        ) { SignUpScreen(navController) }
         composable(
             "simulacro",
             enterTransition = {

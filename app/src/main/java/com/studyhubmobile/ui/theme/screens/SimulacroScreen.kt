@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -94,50 +95,24 @@ fun SimulacroScreen(navController: NavController) {
                             modifier = Modifier.padding(start = 8.dp)
                         )
                     }
-                    Row(
-                        horizontalArrangement = Arrangement.End,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        TextButton(
-                            onClick = { navController.navigate("login") },
-                            modifier = Modifier
-                                .padding(end = 8.dp)
-                        ) {
-                            Text(
-                                text = "Login",
-                                color = Color.White,
-                                fontSize = 16.sp
-                            )
-                        }
-                        TextButton(
-                            onClick = { navController.navigate("signup") },
-                            modifier = Modifier
-                                .padding(end = 8.dp)
-                        ) {
-                            Text(
-                                text = "Sign Up",
-                                color = Color.White,
-                                fontSize = 16.sp
-                            )
-                        }
-                    }
-                    DropdownMenu(
-                        expanded = isMenuExpanded,
-                        onDismissRequest = { isMenuExpanded = false },
-                        modifier = Modifier
-                            .size(32.dp)
-                            .width(240.dp)
-                            .background(Color(0xFF0f172a))
-                    ) {
-                        menuItems.forEach { (text, action) ->
-                            DropdownMenuItem(
-                                text = { Text(text, color = Color.White) },
-                                onClick = {
-                                    action()
-                                    isMenuExpanded = false
-                                }
-                            )
-                        }
+
+                }
+                
+                DropdownMenu(
+                    expanded = isMenuExpanded,
+                    onDismissRequest = { isMenuExpanded = false },
+                    modifier = Modifier
+                        .width(200.dp)
+                        .background(Color(0xFF0f172a))
+                ) {
+                    menuItems.forEach { (text, action) ->
+                        DropdownMenuItem(
+                            text = { Text(text, color = Color.White) },
+                            onClick = {
+                                action()
+                                isMenuExpanded = false
+                            }
+                        )
                     }
                 }
             }
@@ -146,15 +121,11 @@ fun SimulacroScreen(navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(8.dp)
-                    .padding(16.dp),
+                    .padding(16.dp)
+                    .padding(top = 48.dp)
+                    .padding(paddingValues = padding),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text(
-                    text = "Bienvenido a StudyHub",
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(bottom = 16.dp)
-                )
 
                 Column(
                     modifier = Modifier.fillMaxWidth()
@@ -272,4 +243,4 @@ private fun CourseButton(course: String, selected: Boolean, onClick: (String) ->
 private fun toRoman(number: Int): String {
     val romans = listOf("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
     return if (number in 1..10) romans[number - 1] else number.toString()
-} 
+}
