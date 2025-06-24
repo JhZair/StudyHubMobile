@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Qué es un videojuego?",
+        "opciones": [
+            "Programa de computadora interactivo",
+            "Solo texto",
+            "Solo imágenes",
+            "Solo sonido"
+        ],
+        "respuestaCorrecta": "Programa de computadora interactivo"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Qué es un sprite en programación de videojuegos?",
+        "opciones": [
+            "Gráfico bidimensional",
+            "Gráfico tridimensional",
+            "Solo texto",
+            "Solo sonido"
+        ],
+        "respuestaCorrecta": "Gráfico bidimensional"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Qué es un bucle en programación?",
+        "opciones": [
+            "Secuencia de instrucciones que se repite",
+            "Secuencia de instrucciones que se ejecuta una vez",
+            "Secuencia de instrucciones que nunca se repite",
+            "Secuencia de instrucciones que se ejecuta al azar"
+        ],
+        "respuestaCorrecta": "Secuencia de instrucciones que se repite"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Qué es una variable en programación?",
+        "opciones": [
+            "Espacio de memoria con un valor específico",
+            "Solo texto",
+            "Solo números",
+            "Solo gráficos"
+        ],
+        "respuestaCorrecta": "Espacio de memoria con un valor específico"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Qué es un algoritmo?",
+        "opciones": [
+            "Secuencia de pasos para resolver un problema",
+            "Solo texto",
+            "Solo números",
+            "Solo gráficos"
+        ],
+        "respuestaCorrecta": "Secuencia de pasos para resolver un problema"
+    }
+]

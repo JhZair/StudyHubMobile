@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Qué es la comunicación interpersonal?",
+        "opciones": [
+            "Intercambio de información entre dos o más personas",
+            "Comunicación de una sola persona",
+            "Solo comunicación escrita",
+            "Solo comunicación verbal"
+        ],
+        "respuestaCorrecta": "Intercambio de información entre dos o más personas"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Cuáles son los elementos básicos de la comunicación?",
+        "opciones": [
+            "Emisor, mensaje, canal, receptor",
+            "Solo emisor y receptor",
+            "Solo mensaje y canal",
+            "Solo emisor y mensaje"
+        ],
+        "respuestaCorrecta": "Emisor, mensaje, canal, receptor"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Qué es el lenguaje no verbal?",
+        "opciones": [
+            "Solo palabras",
+            "Gestos, expresiones faciales y postura corporal",
+            "Solo sonidos",
+            "Solo escritura"
+        ],
+        "respuestaCorrecta": "Gestos, expresiones faciales y postura corporal"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Qué es un mensaje en la comunicación?",
+        "opciones": [
+            "Solo el emisor",
+            "Información que se transmite",
+            "Solo el canal",
+            "Solo el receptor"
+        ],
+        "respuestaCorrecta": "Información que se transmite"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Qué es la retroalimentación en la comunicación?",
+        "opciones": [
+            "Respuesta del receptor al mensaje",
+            "Solo el mensaje",
+            "Solo el emisor",
+            "Solo el canal"
+        ],
+        "respuestaCorrecta": "Respuesta del receptor al mensaje"
+    }
+]

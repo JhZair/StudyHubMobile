@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Qué es la metodología del estudio?",
+        "opciones": [
+            "Conjunto de técnicas para aprender eficientemente",
+            "Solo lectura",
+            "Solo escritura",
+            "Solo memorización"
+        ],
+        "respuestaCorrecta": "Conjunto de técnicas para aprender eficientemente"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Qué es el plan de estudio?",
+        "opciones": [
+            "Organización del tiempo y recursos para aprender",
+            "Solo horario",
+            "Solo lista de tareas",
+            "Solo calendario"
+        ],
+        "respuestaCorrecta": "Organización del tiempo y recursos para aprender"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Qué es la técnica de estudio SQ3R?",
+        "opciones": [
+            "Survey, Question, Read, Recite, Review",
+            "Solo lectura",
+            "Solo escritura",
+            "Solo memorización"
+        ],
+        "respuestaCorrecta": "Survey, Question, Read, Recite, Review"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Qué es la técnica de mapas mentales?",
+        "opciones": [
+            "Representación visual de ideas y conceptos relacionados",
+            "Solo texto",
+            "Solo números",
+            "Solo gráficos"
+        ],
+        "respuestaCorrecta": "Representación visual de ideas y conceptos relacionados"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Qué es la técnica de la pirámide de Bloom?",
+        "opciones": [
+            "Jerarquía de niveles de aprendizaje",
+            "Solo memorización",
+            "Solo comprensión",
+            "Solo aplicación"
+        ],
+        "respuestaCorrecta": "Jerarquía de niveles de aprendizaje"
+    }
+]

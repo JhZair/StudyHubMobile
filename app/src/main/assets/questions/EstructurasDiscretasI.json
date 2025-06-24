@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Qué es un conjunto en matemáticas?",
+        "opciones": [
+            "Colección ordenada de elementos",
+            "Colección no ordenada de elementos",
+            "Solo números",
+            "Solo letras"
+        ],
+        "respuestaCorrecta": "Colección no ordenada de elementos"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Qué es una relación binaria?",
+        "opciones": [
+            "Conexión entre dos conjuntos",
+            "Conexión entre un solo conjunto",
+            "Conexión entre tres conjuntos",
+            "Conexión entre cuatro conjuntos"
+        ],
+        "respuestaCorrecta": "Conexión entre dos conjuntos"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Qué es una función en matemáticas?",
+        "opciones": [
+            "Relación que asigna dos valores a cada elemento",
+            "Relación que asigna un único valor a cada elemento",
+            "Relación que no asigna valores",
+            "Relación que asigna múltiples valores a cada elemento"
+        ],
+        "respuestaCorrecta": "Relación que asigna un único valor a cada elemento"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Qué es un grafo en matemáticas?",
+        "opciones": [
+            "Colección de vértices y aristas",
+            "Solo vértices",
+            "Solo aristas",
+            "Solo números"
+        ],
+        "respuestaCorrecta": "Colección de vértices y aristas"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Qué es un árbol en matemáticas?",
+        "opciones": [
+            "Grafo acíclico y conexo",
+            "Grafo cíclico",
+            "Grafo desconexo",
+            "Grafo con múltiples ciclos"
+        ],
+        "respuestaCorrecta": "Grafo acíclico y conexo"
+    }
+]
