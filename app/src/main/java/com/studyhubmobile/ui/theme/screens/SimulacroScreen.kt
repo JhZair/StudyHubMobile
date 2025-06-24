@@ -46,12 +46,12 @@ fun SimulacroScreen(navController: NavController) {
 
     val coursesBySemester = mapOf(
         1 to listOf(
-            "matematicas-i",
-            "Introduccion-a-la-Vida-Universitaria",
-            "Comunicacion",
-            "Estructuras-Discretas-I",
-            "Programacion-de-VideoJuegos",
-            "Metodologia-del-Estudio"
+            "matematicasi",
+            "introduccion-a-la-vida-universitaria",
+            "comunicacion",
+            "estructuras-discretas-i",
+            "programacion-de-videojuegos",
+            "metodologia-del-estudio"
         ),
         2 to listOf("matematicas-ii", "fisica-ii", "quimica-ii"),
         3 to listOf("matematicas-iii", "fisica-iii", "quimica-iii"),
@@ -157,11 +157,11 @@ fun SimulacroScreen(navController: NavController) {
                                         course = course,
                                         selected = selectedCourse == course,
                                         onClick = { courseName ->
-                                            // Remove any special characters and replace spaces with hyphens
+                                            // Convertir el nombre del curso para que coincida con el nombre del archivo JSON
                                             val formattedCourseName = courseName
-                                                .replace(" ", "-")
-                                                .replace("ñ", "n")
-                                                .lowercase()
+                                                .replace(" ", "")  // Remover espacios
+                                                .replace("ñ", "n") // Remplazar ñ
+                                                .replace("-", "-") // Mantener guiones
                                             navController.navigate("exam/$formattedCourseName")
                                             expandedSemester = null
                                         }

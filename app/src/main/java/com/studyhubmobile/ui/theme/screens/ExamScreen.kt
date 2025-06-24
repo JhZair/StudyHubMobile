@@ -32,8 +32,16 @@ fun ExamScreen(
 ) {
     val context = LocalContext.current
     val courseName = route.substringAfter("exam/")
-    // Remover guiones del nombre del curso
-    val fileName = courseName.replace("-", "")
+    // Formatear el nombre del archivo para que coincida exactamente con los nombres de los archivos
+    val fileName = when (courseName) {
+        "matematicasi" -> "matematicasi"
+        "programacion-de-videojuegos" -> "programaciondevideojuegos"
+        "metodologia-del-estudio" -> "metodologiadelestudio"
+        "introduccion-a-la-vida-universitaria" -> "introduccionalavidauniversitaria"
+        "estructuras-discretas-i" -> "estructurasdiscretasi"
+        "comunicacion" -> "comunicacion"
+        else -> courseName.replace("-", "")
+    }
 
     // Cargar preguntas desde el archivo JSON
     val questions = remember(courseName) {
