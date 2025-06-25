@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
-import com.studyhubmobile.R
+import com.studyhubmobile.R 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
