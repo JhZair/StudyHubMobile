@@ -13,15 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 import com.studyhubmobile.ui.theme.screens.ExamScreen
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.core.tween
 import com.studyhubmobile.ui.theme.StudyHubMobileTheme
 import com.studyhubmobile.ui.theme.screens.HomeScreen
 import com.studyhubmobile.ui.theme.screens.SimulacroScreen
