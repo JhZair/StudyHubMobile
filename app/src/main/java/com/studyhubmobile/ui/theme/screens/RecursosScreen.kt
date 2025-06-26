@@ -25,6 +25,11 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
 import com.studyhubmobile.R
+import com.studyhubmobile.data.api.RecursoNetworkModule
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
+import com.studyhubmobile.ui.components.ResourceCard
+import com.studyhubmobile.models.Recurso
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,6 +41,21 @@ fun RecursosScreen(navController: NavController) {
         "Simulacro" to { navController.navigate("simulacro") },
         "Perfil" to { navController.navigate("perfil") }
     )
+    val scope = rememberCoroutineScope()
+    var recursos by remember { mutableStateOf<List<Recurso>>(emptyList()) }
+    var isLoading by remember { mutableStateOf(true) }
+
+    LaunchedEffect(Unit) {
+        isLoading = true
+        try {
+            val data = RecursoNetworkModule.apiService.getRecursos()
+            recursos = data
+        } catch (e: Exception) {
+            // Manejar error
+        } finally {
+            isLoading = false
+        }
+    }
 
     Scaffold(
         modifier = Modifier
@@ -93,59 +113,42 @@ fun RecursosScreen(navController: NavController) {
             }
         }
     ) { padding ->
-        Surface(modifier = Modifier.fillMaxSize().background(Color(0xFF0f172a))) {
+        Surface(modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF0f172a))
+            .padding(padding)) {
+
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
                     text = "Recursos Disponibles",
-                    color = Color.Black,
+                    color = Color.White,
                     fontSize = 22.sp,
                     modifier = Modifier.padding(bottom = 16.dp, top = 80.dp)
                 )
-                ResourceCard(title = "Cálculo I", link = "https://example.com/recursos/calculo.pdf")
-                ResourceCard(
-                    title = "Estructuras Discretas I",
-                    link = "https://example.com/recursos/estructuras.pdf"
-                )
-            }
-        }
-    }
-}
 
-@Composable
-fun ResourceCard(title: String, link: String) {
-    val uriHandler = LocalUriHandler.current
-
-    val annotatedLinkString = buildAnnotatedString {
-        append("📄 ")
-
-        pushStringAnnotation(tag = "URL", annotation = link)
-        withStyle(style = SpanStyle(color = Color.Cyan, textDecoration = TextDecoration.Underline)) {
-            append("Ver archivo PDF")
-        }
-        pop()
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .background(Color.DarkGray)
-            .padding(16.dp)
-    ) {
-        Text(text = title, color = Color.White, fontSize = 18.sp)
-        Spacer(modifier = Modifier.height(4.dp))
-
-        @Suppress("DEPRECATION")
-        ClickableText(
-            text = annotatedLinkString,
-            style = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
-            onClick = { offset ->
-                annotatedLinkString
-                    .getStringAnnotations("URL", start = offset, end = offset)
-                    .firstOrNull()?.let { annotation ->
-                        uriHandler.openUri(annotation.item)
+                if (isLoading) {
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator()
                     }
+                } else {
+                    if (recursos.isEmpty()) {
+                        Text(
+                            text = "No hay recursos disponibles.",
+                            color = Color.White,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    } else {
+                        recursos.forEach { recurso ->
+                            ResourceCard(
+                                title = recurso.titulo,
+                                link = recurso.archivo
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+                    }
+                }
             }
-        )
+        }
     }
 }
