@@ -40,7 +40,25 @@ fun ExamScreen(
         "introduccion-a-la-vida-universitaria" -> "introduccionalavidauniversitaria"
         "estructuras-discretas-i" -> "estructurasdiscretasi"
         "comunicacion" -> "comunicacion"
-        else -> courseName.replace("-", "")
+        "matenaticaii" -> "matenaticaii"
+        "estructurasdiscretasii" -> "estructurasdiscretasii"
+        "introduccionalacienciadelacomputacion" -> "introduccionalacienciadelacomputacion"
+        "cienciadelacomputacioni" -> "cienciadelacomputacioni"
+        "introduccionalafilosofia" -> "introduccionalafilosofia"
+        "personamatrimonioyfamilia" -> "personamatrimonioyfamilia"
+        "algebraabstracta" -> "algebraabstracta"
+        "antropologiafilosofiayteologia" -> "antropologiafilosofiayteologia"
+        "arquitecturadecomputadoras" -> "arquitecturadecomputadoras"
+        "calculoi" -> "calculoi"
+        "cienciadelacomputacionii" -> "cienciadelacomputacionii"
+        "desarrollobasadoenplataformas" -> "desarrollobasadoenplataformas"
+        "algoritmosyestructuradedatos" -> "algoritmosyestructuradedatos"
+        "basededatosi" -> "basededatosi"
+        "estadisticayprobalidades" -> "estadisticayprobalidades"
+        "teoria-de-la-computacion" -> "teoriadelacomputacion"
+        "teologia" -> "teologia"
+        "calculoii" -> "calculoii"
+        else -> courseName
     }
 
     // Cargar preguntas desde el archivo JSON

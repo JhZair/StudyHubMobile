@@ -1,0 +1,112 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Cuál de estos filósofos es conocido como el 'padre de la filosofía occidental'?",
+        "opciones": [
+            "Sócrates",
+            "Aristóteles",
+            "Platón",
+            "Heráclito"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Qué concepto filosófico se refiere al estudio de la naturaleza del ser y la realidad?",
+        "opciones": [
+            "Ética",
+            "Metafísica",
+            "Lógica",
+            "Epistemología"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Cuál es el término antropológico que describe el estudio de los sistemas de creencias y rituales de una cultura?",
+        "opciones": [
+            "Antropología física",
+            "Antropología cultural",
+            "Arqueología",
+            "Etnografía"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Qué teoría teológica sostiene que Dios existe y está presente en el mundo pero no interviene directamente en él?",
+        "opciones": [
+            "Teísmo",
+            "Deísmo",
+            "Panteísmo",
+            "Ateísmo"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Qué concepto filosófico se refiere al estudio del conocimiento y la verdad?",
+        "opciones": [
+            "Ética",
+            "Metafísica",
+            "Lógica",
+            "Epistemología"
+        ],
+        "respuestaCorrecta": "3"
+    },
+    {
+        "id": 6,
+        "enunciado": "¿Qué tipo de antropología se enfoca en el estudio de los sistemas de parentesco y matrimonio?",
+        "opciones": [
+            "Antropología física",
+            "Antropología cultural",
+            "Antropología social",
+            "Arqueología"
+        ],
+        "respuestaCorrecta": "2"
+    },
+    {
+        "id": 7,
+        "enunciado": "¿Qué escuela filosófica sostiene que el conocimiento se deriva únicamente de la experiencia sensorial?",
+        "opciones": [
+            "Empirismo",
+            "Racionalismo",
+            "Existencialismo",
+            "Positivismo"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 8,
+        "enunciado": "¿Qué término teológico se refiere a la creencia en un solo Dios?",
+        "opciones": [
+            "Monoteísmo",
+            "Panteísmo",
+            "Politeísmo",
+            "Ateísmo"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 9,
+        "enunciado": "¿Qué concepto filosófico se refiere al estudio de la moral y el deber?",
+        "opciones": [
+            "Ética",
+            "Metafísica",
+            "Lógica",
+            "Epistemología"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 10,
+        "enunciado": "¿Qué tipo de antropología se enfoca en el estudio de las sociedades prehistóricas a través de restos materiales?",
+        "opciones": [
+            "Antropología física",
+            "Antropología cultural",
+            "Arqueología",
+            "Etnografía"
+        ],
+        "respuestaCorrecta": "2"
+    }
+]

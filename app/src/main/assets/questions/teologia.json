@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Cuál es el nombre del primer libro de la Biblia?",
+        "opciones": [
+            "Génesis",
+            "Éxodo",
+            "Levítico",
+            "Números"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Qué concepto teológico se refiere a la creencia en un solo Dios?",
+        "opciones": [
+            "Monoteísmo",
+            "Panteísmo",
+            "Politeísmo",
+            "Ateísmo"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Qué término se refiere al estudio de la naturaleza de Dios?",
+        "opciones": [
+            "Escatología",
+            "Soteriología",
+            "Hamartología",
+            "Teología"
+        ],
+        "respuestaCorrecta": "3"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Qué concepto teológico se refiere al estudio del fin del mundo y los tiempos finales?",
+        "opciones": [
+            "Escatología",
+            "Hamartología",
+            "Pneumatología",
+            "Soteriología"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Qué término teológico se refiere al estudio de la naturaleza humana y el pecado?",
+        "opciones": [
+            "Hamartología",
+            "Antropología",
+            "Pneumatología",
+            "Soteriología"
+        ],
+        "respuestaCorrecta": "1"
+    }
+]

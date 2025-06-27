@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Cuál de las siguientes medidas de tendencia central se ve más afectada por valores extremos?",
+        "opciones": [
+            "Media",
+            "Mediana",
+            "Moda",
+            "Rango"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Qué tipo de probabilidad se basa en el número de veces que un evento ocurre en un experimento?",
+        "opciones": [
+            "Probabilidad clásica",
+            "Probabilidad frecuentista",
+            "Probabilidad subjetiva",
+            "Probabilidad condicional"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Qué estadístico se utiliza para medir la dispersión de los datos en términos de la media?",
+        "opciones": [
+            "Rango",
+            "Varianza",
+            "Moda",
+            "Mediana"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Cuál de las siguientes distribuciones de probabilidad es continua?",
+        "opciones": [
+            "Distribución binomial",
+            "Distribución de Poisson",
+            "Distribución normal",
+            "Distribución hipergeométrica"
+        ],
+        "respuestaCorrecta": "2"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Qué estadístico se utiliza para medir la relación lineal entre dos variables?",
+        "opciones": [
+            "Coeficiente de variación",
+            "Coeficiente de correlación",
+            "Coeficiente de determinación",
+            "Coeficiente de asimetría"
+        ],
+        "respuestaCorrecta": "1"
+    }
+]

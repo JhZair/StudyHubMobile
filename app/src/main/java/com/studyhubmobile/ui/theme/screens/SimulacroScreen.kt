@@ -53,9 +53,30 @@ fun SimulacroScreen(navController: NavController) {
             "programacion-de-videojuegos",
             "metodologia-del-estudio"
         ),
-        2 to listOf("matematicas-ii", "fisica-ii", "quimica-ii"),
-        3 to listOf("matematicas-iii", "fisica-iii", "quimica-iii"),
-        4 to listOf("matematicas-iv", "fisica-iv", "quimica-iv"),
+        2 to listOf(
+            "matenaticaii",
+            "estructurasdiscretasii",
+            "introduccionalacienciadelacomputacion",
+            "cienciadelacomputacioni",
+            "introduccionalafilosofia",
+            "personamatrimonioyfamilia"
+        ),
+        3 to listOf(
+            "algebraabstracta",
+            "antropologiafilosofiayteologia",
+            "arquitecturadecomputadoras",
+            "calculoi",
+            "cienciadelacomputacionii",
+            "desarrollobasadoenplataformas"
+        ),
+        4 to listOf(
+            "algoritmosyestructuradedatos",
+            "basededatosi",
+            "estadisticayprobalidades",
+            "teoria-de-la-computacion",
+            "teologia",
+            "calculoii"
+        ),
         5 to listOf("matematicas-v", "fisica-v", "quimica-v"),
         6 to listOf("matematicas-vi", "fisica-vi", "quimica-vi"),
         7 to listOf("matematicas-vii", "fisica-vii", "quimica-vii"),

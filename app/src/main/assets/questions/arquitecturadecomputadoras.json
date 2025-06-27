@@ -1,0 +1,112 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Cuál de las siguientes no es una unidad funcional de la CPU?",
+        "opciones": [
+            "Unidad de Control",
+            "Unidad Aritmético-Lógica",
+            "Memoria Cache",
+            "Disco Duro"
+        ],
+        "respuestaCorrecta": "3"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Qué representa el término MIPS en la medición de rendimiento de un procesador?",
+        "opciones": [
+            "Millones de Instrucciones por Segundo",
+            "Megabytes por Segundo",
+            "Microsegundos de Instrucción",
+            "Megabytes en Procesamiento"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Cuál es la función principal de la memoria caché en un sistema de computadora?",
+        "opciones": [
+            "Almacenar datos permanentemente",
+            "Aumentar la velocidad de acceso a datos frecuentemente usados",
+            "Almacenar instrucciones del sistema operativo",
+            "Guardar datos de respaldo"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Qué significa la arquitectura RISC?",
+        "opciones": [
+            "Reduced Instruction Set Computing",
+            "Rapid Instruction Set Computing",
+            "Regular Instruction Set Computing",
+            "Repetitive Instruction Set Computing"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Cuál es el propósito principal de los registros en la CPU?",
+        "opciones": [
+            "Almacenar datos de largo plazo",
+            "Realizar cálculos matemáticos",
+            "Almacenar datos temporalmente durante operaciones",
+            "Controlar el flujo de datos en la memoria RAM"
+        ],
+        "respuestaCorrecta": "2"
+    },
+    {
+        "id": 6,
+        "enunciado": "¿Qué es el bus de datos en una computadora?",
+        "opciones": [
+            "Unidad que realiza cálculos aritméticos",
+            "Conjunto de líneas que transportan datos entre componentes",
+            "Unidad de control del procesador",
+            "Memoria temporal de la CPU"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 7,
+        "enunciado": "¿Qué significa la arquitectura CISC?",
+        "opciones": [
+            "Complete Instruction Set Computing",
+            "Complex Instruction Set Computing",
+            "Compact Instruction Set Computing",
+            "Combined Instruction Set Computing"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 8,
+        "enunciado": "¿Cuál es la función principal de la Unidad de Control en la CPU?",
+        "opciones": [
+            "Realizar cálculos matemáticos",
+            "Decodificar instrucciones y controlar la ejecución",
+            "Almacenar datos temporalmente",
+            "Controlar el flujo de datos en la memoria RAM"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 9,
+        "enunciado": "¿Qué significa la arquitectura Harvard en términos de memoria?",
+        "opciones": [
+            "Separación de memoria para datos y programas",
+            "Uso compartido de memoria para datos y programas",
+            "Memoria virtual exclusiva para datos",
+            "Memoria cache dedicada para instrucciones"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 10,
+        "enunciado": "¿Qué es el pipelining en la arquitectura de computadoras?",
+        "opciones": [
+            "Técnica que reduce el tamaño de la CPU",
+            "Técnica que aumenta la velocidad de ejecución superponiendo etapas de instrucciones",
+            "Técnica para reducir el consumo de energía",
+            "Técnica para aumentar la memoria caché"
+        ],
+        "respuestaCorrecta": "1"
+    }
+]

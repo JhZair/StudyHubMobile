@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Cuál es el modelo de datos más comúnmente utilizado en las bases de datos modernas?",
+        "opciones": [
+            "Modelo jerárquico",
+            "Modelo relacional",
+            "Modelo de red",
+            "Modelo orientado a objetos"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Qué significa ACID en las transacciones de bases de datos?",
+        "opciones": [
+            "Atomicidad, Consistencia, Isolación, Durabilidad",
+            "Autenticidad, Confiabilidad, Identidad, Diversidad",
+            "Acceso, Control, Información, Datos",
+            "Almacenamiento, Control, Identidad, Datos"
+        ],
+        "respuestaCorrecta": "0"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Qué tipo de relación permite que un registro de una tabla tenga múltiples registros relacionados en otra tabla?",
+        "opciones": [
+            "Uno a Uno",
+            "Uno a Muchos",
+            "Muchos a Uno",
+            "Muchos a Muchos"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Qué comando SQL se utiliza para recuperar datos de una base de datos?",
+        "opciones": [
+            "INSERT",
+            "UPDATE",
+            "DELETE",
+            "SELECT"
+        ],
+        "respuestaCorrecta": "3"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Qué índice permite tener valores duplicados en una columna?",
+        "opciones": [
+            "Índice único",
+            "Índice compuesto",
+            "Índice normal",
+            "Índice primario"
+        ],
+        "respuestaCorrecta": "2"
+    }
+]

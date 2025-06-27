@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Cuál de las siguientes estructuras de datos permite acceso aleatorio pero no permite duplicados?",
+        "opciones": [
+            "Lista",
+            "Pila",
+            "Conjunto",
+            "Cola"
+        ],
+        "respuestaCorrecta": "2"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Qué algoritmo de ordenamiento tiene una complejidad O(n log n) en el mejor caso?",
+        "opciones": [
+            "Burbuja",
+            "Selección",
+            "Inserción",
+            "Merge Sort"
+        ],
+        "respuestaCorrecta": "3"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Qué estructura de datos es ideal para implementar una cola con operaciones O(1)?",
+        "opciones": [
+            "Árbol Binario",
+            "Lista Enlazada",
+            "Array",
+            "Hash Table"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Qué algoritmo de búsqueda es el más eficiente en un árbol binario de búsqueda balanceado?",
+        "opciones": [
+            "Búsqueda Lineal",
+            "Búsqueda Binaria",
+            "Búsqueda en Profundidad",
+            "Búsqueda en Anchura"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Qué estructura de datos es ideal para implementar el algoritmo de Dijkstra?",
+        "opciones": [
+            "Pila",
+            "Cola",
+            "Conjunto",
+            "Cola de Prioridad"
+        ],
+        "respuestaCorrecta": "3"
+    }
+]
