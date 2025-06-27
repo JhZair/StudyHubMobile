@@ -281,7 +281,8 @@ fun ExamScreen(
 
                             // Calcular puntaje
                             val correctAnswers = questions.count { question ->
-                                selectedAnswers[questions.indexOf(question)].toString() == question.respuestaCorrecta
+                                val questionIndex = questions.indexOf(question)
+                                selectedAnswers[questionIndex] == question.respuestaCorrecta.toInt()
                             }
                             Text(
                                 text = "Preguntas correctas: $correctAnswers de ${questions.size}",
