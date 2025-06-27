@@ -68,21 +68,7 @@ fun SimulacroScreen(navController: NavController) {
             "calculoi",
             "cienciadelacomputacionii",
             "desarrollobasadoenplataformas"
-        ),
-        4 to listOf(
-            "algoritmosyestructuradedatos",
-            "basededatosi",
-            "estadisticayprobalidades",
-            "teoria-de-la-computacion",
-            "teologia",
-            "calculoii"
-        ),
-        5 to listOf("matematicas-v", "fisica-v", "quimica-v"),
-        6 to listOf("matematicas-vi", "fisica-vi", "quimica-vi"),
-        7 to listOf("matematicas-vii", "fisica-vii", "quimica-vii"),
-        8 to listOf("matematicas-viii", "fisica-viii", "quimica-viii"),
-        9 to listOf("matematicas-ix", "fisica-ix", "quimica-ix"),
-        10 to listOf("matematicas-x", "fisica-x", "quimica-x")
+        )
     )
 
     Scaffold(
@@ -158,7 +144,7 @@ fun SimulacroScreen(navController: NavController) {
                 Column(
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    for (semester in 1..10) {
+                    for (semester in 1..3) {
                         SemesterButton(
                             semester = semester,
                             expanded = expandedSemester == semester,

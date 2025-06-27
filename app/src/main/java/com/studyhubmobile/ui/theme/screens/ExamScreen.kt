@@ -46,18 +46,6 @@ fun ExamScreen(
         "cienciadelacomputacioni" -> "cienciadelacomputacioni"
         "introduccionalafilosofia" -> "introduccionalafilosofia"
         "personamatrimonioyfamilia" -> "personamatrimonioyfamilia"
-        "algebraabstracta" -> "algebraabstracta"
-        "antropologiafilosofiayteologia" -> "antropologiafilosofiayteologia"
-        "arquitecturadecomputadoras" -> "arquitecturadecomputadoras"
-        "calculoi" -> "calculoi"
-        "cienciadelacomputacionii" -> "cienciadelacomputacionii"
-        "desarrollobasadoenplataformas" -> "desarrollobasadoenplataformas"
-        "algoritmosyestructuradedatos" -> "algoritmosyestructuradedatos"
-        "basededatosi" -> "basededatosi"
-        "estadisticayprobalidades" -> "estadisticayprobalidades"
-        "teoria-de-la-computacion" -> "teoriadelacomputacion"
-        "teologia" -> "teologia"
-        "calculoii" -> "calculoii"
         else -> courseName
     }
 
