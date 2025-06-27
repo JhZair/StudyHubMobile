@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "enunciado": "¿Cuál de las siguientes funciones es una antiderivada de f(x) = 2x?",
+        "opciones": [
+            "x²",
+            "x² + C",
+            "2x²",
+            "2x² + C"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 2,
+        "enunciado": "¿Qué método se utiliza para integrar funciones de la forma ∫sin²(x)dx?",
+        "opciones": [
+            "Integración por partes",
+            "Sustitución trigonométrica",
+            "Fórmulas de reducción",
+            "Integración directa"
+        ],
+        "respuestaCorrecta": "2"
+    },
+    {
+        "id": 3,
+        "enunciado": "¿Qué tipo de integral se utiliza para calcular el área bajo una curva?",
+        "opciones": [
+            "Integral indefinida",
+            "Integral definida",
+            "Integral impropia",
+            "Integral múltiple"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 4,
+        "enunciado": "¿Cuál de las siguientes integrales converge?",
+        "opciones": [
+            "∫₁^∞ (1/x) dx",
+            "∫₁^∞ (1/x²) dx",
+            "∫₁^∞ (1/√x) dx",
+            "∫₁^∞ (1/x³) dx"
+        ],
+        "respuestaCorrecta": "1"
+    },
+    {
+        "id": 5,
+        "enunciado": "¿Qué método se utiliza para integrar funciones racionales?",
+        "opciones": [
+            "Integración por partes",
+            "Sustitución trigonométrica",
+            "Fórmulas de reducción",
+            "Fracciones parciales"
+        ],
+        "respuestaCorrecta": "3"
+    }
+]
