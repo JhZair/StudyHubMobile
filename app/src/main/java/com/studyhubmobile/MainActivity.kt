@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.studyhubmobile.ui.theme.screens.ExamScreen
+import com.studyhubmobile.ui.theme.screens.TriviaExamScreen
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -192,6 +193,23 @@ fun AppNavigation() {
                     )
                 }
             )
+        }
+        composable(
+            "exam/trivia",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { it },
+                    animationSpec = tween(300)
+                ) + fadeIn(animationSpec = tween(300))
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(300)
+                ) + fadeOut(animationSpec = tween(300))
+            }
+        ) {
+            TriviaExamScreen(navController = navController)
         }
         composable(
             "exam/{course}",

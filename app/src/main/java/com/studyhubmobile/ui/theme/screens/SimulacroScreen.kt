@@ -32,6 +32,108 @@ import kotlinx.serialization.json.Json
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun TriviaButton(navController: NavController) {
+    Button(
+        onClick = { navController.navigate("exam/trivia") },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFF0f172a),
+            contentColor = Color.White
+        )
+    ) {
+        Text(
+            text = "Examen de Trivia",
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
+fun SemesterButton(semester: Int, expanded: Boolean, onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .background(Color(0xFF0f172a), RoundedCornerShape(6.dp))
+            .clickable { onClick() },
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Spacer(modifier = Modifier.width(16.dp))
+            val romanSemester = toRoman(semester)
+            Text(
+                text = "SEMESTRE $romanSemester",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Start,
+                modifier = Modifier.weight(1f)
+            )
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowDown,
+                contentDescription = "Expandir",
+                tint = Color.White,
+                modifier = Modifier.size(32.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+        }
+    }
+}
+
+@Composable
+fun CourseButton(course: String, selected: Boolean, onClick: (String) -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .background(Color(0xFF0F172A), RoundedCornerShape(6.dp))
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) {
+                onClick(course)
+            },
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(
+                text = course,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Start,
+                modifier = Modifier.weight(1f)
+            )
+            if (selected) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "Seleccionado",
+                    tint = Color.White,
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+            }
+        }
+    }
+}
+
+fun toRoman(number: Int): String {
+    val romans = listOf("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
+    return if (number in 1..10) romans[number - 1] else number.toString()
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 fun SimulacroScreen(navController: NavController) {
     var isMenuExpanded by remember { mutableStateOf(false) }
     val menuItems = listOf(
@@ -144,123 +246,48 @@ fun SimulacroScreen(navController: NavController) {
                 Column(
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    for (semester in 1..3) {
-                        SemesterButton(
-                            semester = semester,
-                            expanded = expandedSemester == semester,
-                            onClick = {
-                                expandedSemester = if (expandedSemester == semester) null else semester
-                            }
-                        )
-                        if (expandedSemester == semester) {
-                            val courses = coursesBySemester[semester] ?: emptyList()
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 8.dp)
-                            ) {
-                                courses.forEach { course ->
-                                    CourseButton(
-                                        course = course,
-                                        selected = selectedCourse == course,
-                                        onClick = { courseName ->
-                                            // Convertir el nombre del curso para que coincida con el nombre del archivo JSON
-                                            val formattedCourseName = courseName
-                                                .replace(" ", "")  // Remover espacios
-                                                .replace("ñ", "n") // Remplazar ñ
-                                                .replace("-", "-") // Mantener guiones
-                                            navController.navigate("exam/$formattedCourseName")
-                                            expandedSemester = null
-                                        }
-                                    )
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        for (semester in 1..3) {
+                            SemesterButton(
+                                semester = semester,
+                                expanded = expandedSemester == semester,
+                                onClick = {
+                                    expandedSemester = if (expandedSemester == semester) null else semester
+                                }
+                            )
+                            if (expandedSemester == semester) {
+                                val courses = coursesBySemester[semester] ?: emptyList()
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(bottom = 8.dp)
+                                ) {
+                                    courses.forEach { course ->
+                                        CourseButton(
+                                            course = course,
+                                            selected = selectedCourse == course,
+                                            onClick = { courseName ->
+                                                // Convertir el nombre del curso para que coincida con el nombre del archivo JSON
+                                                val formattedCourseName = courseName
+                                                    .replace(" ", "")  // Remover espacios
+                                                    .replace("ñ", "n") // Remplazar ñ
+                                                    .replace("-", "-") // Mantener guiones
+                                                navController.navigate("exam/$formattedCourseName")
+                                                expandedSemester = null
+                                            }
+                                        )
+                                    }
                                 }
                             }
+                            Spacer(modifier = Modifier.height(12.dp))
                         }
-                        Spacer(modifier = Modifier.height(12.dp))
                     }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    TriviaButton(navController = navController)
                 }
             }
         }
     )
-}
-
-@Composable
-private fun SemesterButton(semester: Int, expanded: Boolean, onClick: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(Color(0xFF0f172a), RoundedCornerShape(6.dp))
-            .clickable { onClick() },
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Spacer(modifier = Modifier.width(16.dp))
-            val romanSemester = toRoman(semester)
-            Text(
-                text = "SEMESTRE $romanSemester",
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                textAlign = TextAlign.Start,
-                modifier = Modifier.weight(1f)
-            )
-            Icon(
-                imageVector = Icons.Default.KeyboardArrowDown,
-                contentDescription = "Expandir",
-                tint = Color.White,
-                modifier = Modifier.size(32.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-        }
-    }
-}
-
-@Composable
-private fun CourseButton(course: String, selected: Boolean, onClick: (String) -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(Color(0xFF0F172A), RoundedCornerShape(6.dp))
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null
-            ) {
-                onClick(course)
-            },
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = course,
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Start,
-                modifier = Modifier.weight(1f)
-            )
-            if (selected) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "Seleccionado",
-                    tint = Color.White,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-            }
-        }
-    }
-}
-
-private fun toRoman(number: Int): String {
-    val romans = listOf("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
-    return if (number in 1..10) romans[number - 1] else number.toString()
 }
