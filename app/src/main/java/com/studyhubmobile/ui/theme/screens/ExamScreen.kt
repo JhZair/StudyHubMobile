@@ -122,9 +122,14 @@ fun ExamScreen(
             println("respuestasCorrectas: ${questions.map { it.respuestaCorrecta }}")
             val correctAnswers = questions.mapIndexed { idx, question ->
                 val seleccion = selectedAnswers.getOrNull(idx)
-                val correcta = question.respuestaCorrecta.toString()
-                println("Pregunta $idx: seleccion=$seleccion, correcta=$correcta")
-                seleccion != null && seleccion.toString() == correcta
+                if (seleccion != null && seleccion >= 0 && seleccion < question.opciones.size) {
+                    val respuestaSeleccionada = question.opciones[seleccion]
+                    val correcta = question.respuestaCorrecta
+                    println("Pregunta $idx: seleccion=$respuestaSeleccionada, correcta=$correcta")
+                    respuestaSeleccionada == correcta
+                } else {
+                    false
+                }
             }.count { it }
             val totalQuestions = questions.size
             lastScore = Pair(correctAnswers, totalQuestions)
