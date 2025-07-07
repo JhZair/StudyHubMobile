@@ -1,3 +1,4 @@
+
 package com.studyhubmobile.ui.theme.screens
 
 import androidx.compose.foundation.layout.*
@@ -23,14 +24,19 @@ import com.studyhubmobile.R
 import androidx.compose.ui.graphics.Color as ComposeColor
 import androidx.compose.foundation.Image
 import androidx.navigation.NavController
+import com.studyhubmobile.models.User
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpScreen(navController: NavController) {
+fun SignUpScreen(
+    navController: NavController,
+    onRegister: (User?) -> Unit
+) {
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
+    var university by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -101,6 +107,26 @@ fun SignUpScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
+                value = university,
+                onValueChange = { university = it },
+                label = { Text("Universidad", color = Color.White) },
+                leadingIcon = { Icon(Icons.Default.Person, "university", tint = Color.White) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color(0xFF1e293b),
+                    unfocusedContainerColor = Color(0xFF1e293b),
+                    focusedTextColor = Color.White,
+                    unfocusedTextColor = Color.White,
+                    focusedLabelColor = Color.White,
+                    unfocusedLabelColor = Color.White
+                )
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
                 label = { Text("Contraseña", color = Color.White) },
@@ -144,8 +170,16 @@ fun SignUpScreen(navController: NavController) {
 
             Button(
                 onClick = {
-                    // TODO: Implementar registro
-                    navController.navigate("home")
+                    isLoading = true
+                    val user = User(
+                        id_usuario = 0, // Se generará automáticamente en el backend
+                        nombre = username,
+                        email = email,
+                        fecha_registro = null, // Se generará automáticamente en el backend
+                        ultimo_acceso = null, // Se generará automáticamente en el backend
+                        universidad = university
+                    )
+                    onRegister(user)
                 },
                 modifier = Modifier
                     .fillMaxWidth()

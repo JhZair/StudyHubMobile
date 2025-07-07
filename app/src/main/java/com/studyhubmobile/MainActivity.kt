@@ -23,9 +23,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import android.widget.Toast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.studyhubmobile.ui.theme.screens.*
+import com.studyhubmobile.ui.theme.screens.SignUpScreen
 import com.studyhubmobile.models.User
 import com.studyhubmobile.data.repository.AuthRepository
 import com.studyhubmobile.ui.theme.StudyHubMobileTheme
@@ -87,8 +89,30 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination = "loading"
     ) {
+        composable(
+            "loading"
+        ) { backStackEntry ->
+            LoadingScreen(
+                navController = navController,
+                onLoadingComplete = {
+                    navController.navigate("home") {
+                        popUpTo("loading") { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(
+            "home"
+        ) { backStackEntry ->
+            HomeScreen(
+                navController = navController,
+                currentUser = (navController.context as MainActivity).authRepository.currentUser
+            )
+        }
+
         composable(
             "login",
             enterTransition = {
@@ -109,38 +133,16 @@ fun AppNavigation(
                 onLogin = { user: User? ->
                     if (user != null) {
                         (navController.context as MainActivity).authRepository.currentUser = user
-                        navController.navigate("home") { 
-                            popUpTo("login") { 
-                                inclusive = true
-                            }
-                        }
+                        Toast.makeText(navController.context, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                     } else {
                         (navController.context as MainActivity).authRepository.currentUser = null
+                        Toast.makeText(navController.context, "Error en el inicio de sesión", Toast.LENGTH_SHORT).show()
                     }
                 }
             )
         }
 
-        composable(
-            "home",
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { it },
-                    animationSpec = tween(300)
-                ) + fadeIn(animationSpec = tween(300))
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -it },
-                    animationSpec = tween(300)
-                ) + fadeOut(animationSpec = tween(300))
-            }
-        ) { backStackEntry ->
-            HomeScreen(
-                navController = navController,
-                currentUser = (navController.context as MainActivity).authRepository.currentUser
-            )
-        }
+
 
 
 
@@ -159,7 +161,7 @@ fun AppNavigation(
                 ) + fadeOut(animationSpec = tween(300))
             }
         ) { backStackEntry ->
-            RegisterScreen(
+            SignUpScreen(
                 navController = navController,
                 onRegister = { user: User? ->
                     if (user != null) {
