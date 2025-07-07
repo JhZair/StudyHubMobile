@@ -28,6 +28,16 @@ class AuthRepository {
         }
     }
 
+    suspend fun register(nombre: String, email: String, password: String): Response<RegisterResponse> {
+        return withContext(Dispatchers.IO) {
+            val response = apiService.register(RegisterRequest(nombre, email, password))
+            if (response.isSuccessful) {
+                currentUser = response.body()?.usuario
+            }
+            response
+        }
+    }
+
 
 
 

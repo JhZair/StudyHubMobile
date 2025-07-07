@@ -87,7 +87,7 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "login"
+        startDestination = "home"
     ) {
         composable(
             "login",
@@ -143,6 +143,36 @@ fun AppNavigation(
         }
 
 
+
+        composable(
+            "register",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { it },
+                    animationSpec = tween(300)
+                ) + fadeIn(animationSpec = tween(300))
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(300)
+                ) + fadeOut(animationSpec = tween(300))
+            }
+        ) { backStackEntry ->
+            RegisterScreen(
+                navController = navController,
+                onRegister = { user: User? ->
+                    if (user != null) {
+                        (navController.context as MainActivity).authRepository.currentUser = user
+                        navController.navigate("home") {
+                            popUpTo("register") {
+                                inclusive = true
+                            }
+                        }
+                    }
+                }
+            )
+        }
 
         composable(
             "simulacro",
