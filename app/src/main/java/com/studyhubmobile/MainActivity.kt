@@ -30,6 +30,7 @@ import com.studyhubmobile.ui.theme.screens.LoadingScreen
 import com.studyhubmobile.ui.theme.screens.UserProfileScreen
 import com.studyhubmobile.models.UserProfile
 import com.studyhubmobile.models.UserStats
+import com.studyhubmobile.session.SessionManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,18 +67,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-    val currentUser = remember {
-        UserProfile(
-            name = "Usuario",
-            email = "usuario@email.com",
-            currentSemester = 1,
-            stats = UserStats(
-                totalExams = 0,
-                correctAnswers = 0,
-                totalQuestions = 0,
-                averageScore = 0f
-            )
-        )
+    var currentUser by remember { mutableStateOf(SessionManager.currentUser) }
+
+    LaunchedEffect(Unit) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            currentUser = SessionManager.currentUser
+        }
     }
     
     NavHost(
@@ -178,21 +173,29 @@ fun AppNavigation() {
                 ) + fadeOut(animationSpec = tween(300))
             }
         ) {
-            UserProfileScreen(
-                user = currentUser,
-                navController = navController,
-                onLogout = { navController.navigate("login") },
-                onUpdateProfile = { updatedUser ->
-                    // TODO: Implementar actualización de perfil
-                    // Por ahora, simplemente actualizamos el estado local
-                    currentUser.copy(
-                        name = updatedUser.name,
-                        email = updatedUser.email,
-                        currentSemester = updatedUser.currentSemester,
-                        stats = updatedUser.stats
-                    )
-                }
-            )
+            if (currentUser != null) {
+                UserProfileScreen(
+                    user = com.studyhubmobile.models.UserProfile(
+                        name = currentUser!!.nombre,
+                        email = currentUser!!.email,
+                        currentSemester = 1
+                    ),
+                    navController = navController,
+                    onLogout = { navController.navigate("login") },
+                    onUpdateProfile = { /* No implementado */ }
+                )
+            } else {
+                UserProfileScreen(
+                    user = com.studyhubmobile.models.UserProfile(
+                        name = "Usuario",
+                        email = "usuario@email.com",
+                        currentSemester = 1
+                    ),
+                    navController = navController,
+                    onLogout = { navController.navigate("login") },
+                    onUpdateProfile = { /* No implementado */ }
+                )
+            }
         }
         composable(
             "exam/trivia",
