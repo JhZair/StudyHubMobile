@@ -132,6 +132,36 @@ fun toRoman(number: Int): String {
     return if (number in 1..10) romans[number - 1] else number.toString()
 }
 
+// Función para mapear el nombre del curso al nombre de archivo JSON
+fun getCourseFileName(courseName: String): String {
+    return when (courseName) {
+        "matematicasi" -> "matematicasi"
+        "matenaticaii" -> "matenaticaii"
+        "introduccion-a-la-vida-universitaria" -> "IntroduccionalaVidaUniversitaria"
+        "comunicacion" -> "Comunicacion"
+        "estructuras-discretas-i" -> "estructurasdiscretasi"
+        "estructurasdiscretasii" -> "estructurasdiscretasii"
+        "programacion-de-videojuegos" -> "programaciondevideojuegos"
+        "metodologia-del-estudio" -> "metodologiadelestudio"
+        "introduccionalacienciadelacomputacion" -> "introduccionalacienciadelacomputacion"
+        "cienciadelacomputacioni" -> "cienciadelacomputacioni"
+        "cienciadelacomputacionii" -> "cienciadelacomputacionii"
+        "introduccionalafilosofia" -> "introduccionalafilosofia"
+        "personamatrimonioyfamilia" -> "personamatrimonioyfamilia"
+        "algebraabstracta" -> "algebraabstracta"
+        "antropologiafilosofiayteologia" -> "antropologiafilosofiayteologia"
+        "arquitecturadecomputadoras" -> "arquitecturadecomputadoras"
+        "calculoi" -> "calculoi"
+        "desarrollobasadoenplataformas" -> "desarrollobasadoenplataformas"
+        "basededatosi" -> "basededatosi"
+        "estadisticayprobalidades" -> "estadisticayprobalidades"
+        "teoriadelacomputacion" -> "teoriadelacomputacion"
+        "EstructurasDiscretasI" -> "EstructurasDiscretasI"
+        "teologia" -> "teologia"
+        else -> courseName.replace("-", "").replace(" ", "").replace("ñ", "n")
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SimulacroScreen(navController: NavController) {
@@ -269,11 +299,7 @@ fun SimulacroScreen(navController: NavController) {
                                             course = course,
                                             selected = selectedCourse == course,
                                             onClick = { courseName ->
-                                                // Convertir el nombre del curso para que coincida con el nombre del archivo JSON
-                                                val formattedCourseName = courseName
-                                                    .replace(" ", "")  // Remover espacios
-                                                    .replace("ñ", "n") // Remplazar ñ
-                                                    .replace("-", "-") // Mantener guiones
+                                                val formattedCourseName = getCourseFileName(courseName)
                                                 navController.navigate("exam/$formattedCourseName")
                                                 expandedSemester = null
                                             }
