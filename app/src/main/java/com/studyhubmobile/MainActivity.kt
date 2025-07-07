@@ -5,33 +5,61 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.studyhubmobile.ui.theme.screens.ExamScreen
-import com.studyhubmobile.ui.theme.screens.TriviaExamScreen
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.ui.graphics.Color
+import androidx.compose.animation.*
+import androidx.compose.animation.core.*
+import androidx.navigation.NavHost
+import androidx.navigation.NavType
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import com.studyhubmobile.ui.theme.screens.*
+import com.studyhubmobile.models.User
+import com.studyhubmobile.data.repository.AuthRepository
 import com.studyhubmobile.ui.theme.StudyHubMobileTheme
-import com.studyhubmobile.ui.theme.screens.HomeScreen
-import com.studyhubmobile.ui.theme.screens.SimulacroScreen
-import com.studyhubmobile.ui.theme.screens.RecursosScreen
-import com.studyhubmobile.ui.theme.screens.LoginScreen
-import com.studyhubmobile.ui.theme.screens.SignUpScreen
-import com.studyhubmobile.ui.theme.screens.LoadingScreen
-import com.studyhubmobile.ui.theme.screens.UserProfileScreen
-import com.studyhubmobile.models.UserProfile
-import com.studyhubmobile.models.UserStats
+
+@Composable
+fun LoadingScreen(
+    navController: NavHostController,
+    onLoadingComplete: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(50.dp)
+                .align(Alignment.Center)
+        )
+    }
+    LaunchedEffect(Unit) {
+        delay(1000)
+        onLoadingComplete()
+    }
+}
 
 class MainActivity : ComponentActivity() {
+    val authRepository = AuthRepository()
+    
+
+    
+
+    
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,22 +69,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    var isLoading by remember { mutableStateOf(true) }
-                    
-                    if (isLoading) {
-                        LoadingScreen(
-                            navController = rememberNavController(),
-                            onLoadingComplete = { isLoading = false }
-                        )
-                    } else {
-                        Surface(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(MaterialTheme.colorScheme.background)
-                        ) {
-                            AppNavigation()
-                        }
-                    }
+                    val navController = rememberNavController()
+                    AppNavigation(
+                        navController = navController,
+                        currentUser = authRepository.currentUser
+                    )
                 }
             }
         }
@@ -64,45 +81,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
-    val currentUser = remember {
-        UserProfile(
-            name = "Usuario",
-            email = "usuario@email.com",
-            currentSemester = 1,
-            stats = UserStats(
-                totalExams = 0,
-                correctAnswers = 0,
-                totalQuestions = 0,
-                averageScore = 0f
-            )
-        )
-    }
-    
+fun AppNavigation(
+    navController: NavHostController,
+    currentUser: User?
+) {
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination = "login"
     ) {
-        composable(
-            "home",
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { it },
-                    animationSpec = tween(300)
-                ) + fadeIn(animationSpec = tween(300))
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -it },
-                    animationSpec = tween(300)
-                ) + fadeOut(animationSpec = tween(300))
-            }
-        ) {
-            HomeScreen(
-                navController = navController
-            )
-        }
         composable(
             "login",
             enterTransition = {
@@ -117,9 +103,26 @@ fun AppNavigation() {
                     animationSpec = tween(300)
                 ) + fadeOut(animationSpec = tween(300))
             }
-        ) { LoginScreen(navController) }
+        ) { backStackEntry ->
+            LoginScreen(
+                navController = navController,
+                onLogin = { user: User? ->
+                    if (user != null) {
+                        (navController.context as MainActivity).authRepository.currentUser = user
+                        navController.navigate("home") { 
+                            popUpTo("login") { 
+                                inclusive = true
+                            }
+                        }
+                    } else {
+                        (navController.context as MainActivity).authRepository.currentUser = null
+                    }
+                }
+            )
+        }
+
         composable(
-            "register",
+            "home",
             enterTransition = {
                 slideInHorizontally(
                     initialOffsetX = { it },
@@ -132,7 +135,15 @@ fun AppNavigation() {
                     animationSpec = tween(300)
                 ) + fadeOut(animationSpec = tween(300))
             }
-        ) { SignUpScreen(navController) }
+        ) { backStackEntry ->
+            HomeScreen(
+                navController = navController,
+                currentUser = (navController.context as MainActivity).authRepository.currentUser
+            )
+        }
+
+
+
         composable(
             "simulacro",
             enterTransition = {
@@ -147,7 +158,10 @@ fun AppNavigation() {
                     animationSpec = tween(300)
                 ) + fadeOut(animationSpec = tween(300))
             }
-        ) { SimulacroScreen(navController) }
+        ) { backStackEntry ->
+            SimulacroScreen(navController)
+        }
+
         composable(
             "recursos",
             enterTransition = {
@@ -162,7 +176,10 @@ fun AppNavigation() {
                     animationSpec = tween(300)
                 ) + fadeOut(animationSpec = tween(300))
             }
-        ) { RecursosScreen(navController) }
+        ) { backStackEntry ->
+            RecursosScreen(navController)
+        }
+
         composable(
             "perfil",
             enterTransition = {
@@ -177,23 +194,37 @@ fun AppNavigation() {
                     animationSpec = tween(300)
                 ) + fadeOut(animationSpec = tween(300))
             }
-        ) {
-            UserProfileScreen(
-                user = currentUser,
-                navController = navController,
-                onLogout = { navController.navigate("login") },
-                onUpdateProfile = { updatedUser ->
-                    // TODO: Implementar actualización de perfil
-                    // Por ahora, simplemente actualizamos el estado local
-                    currentUser.copy(
-                        name = updatedUser.name,
-                        email = updatedUser.email,
-                        currentSemester = updatedUser.currentSemester,
-                        stats = updatedUser.stats
-                    )
+        ) { backStackEntry ->
+            if (currentUser != null) {
+                UserProfileScreen(
+                    user = currentUser!!,
+                    navController = navController,
+                    onLogout = {
+                        (navController.context as MainActivity).authRepository.currentUser = null
+                        navController.navigate("login") {
+                            popUpTo("perfil") { inclusive = true }
+                        }
+                    },
+                    onUpdateProfile = { updatedUser ->
+                        (navController.context as MainActivity).authRepository.currentUser = updatedUser
+                    }
+                )
+            } else {
+                Text(
+                    text = "No hay usuario autenticado",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Button(
+                    onClick = {
+                        navController.navigate("login")
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Iniciar Sesión")
                 }
-            )
+            }
         }
+
         composable(
             "exam/trivia",
             enterTransition = {
@@ -208,9 +239,10 @@ fun AppNavigation() {
                     animationSpec = tween(300)
                 ) + fadeOut(animationSpec = tween(300))
             }
-        ) {
+        ) { backStackEntry ->
             TriviaExamScreen(navController = navController)
         }
+
         composable(
             "exam/{course}",
             enterTransition = {

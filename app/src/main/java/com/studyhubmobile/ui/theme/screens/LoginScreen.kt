@@ -21,25 +21,27 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.navigation.NavController
 import androidx.compose.ui.graphics.Color as ComposeColor
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineScope
+import androidx.compose.runtime.rememberCoroutineScope
 
 // Modelos
-import com.studyhubmobile.models.LoginRequest
-import com.studyhubmobile.models.LoginResponse
 import com.studyhubmobile.models.User
-
-
 import com.studyhubmobile.utils.hacerLoginSimple
-
+import com.studyhubmobile.ui.theme.StudyHubMobileTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(
+    navController: NavController,
+    onLogin: (User?) -> Unit
+) {
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
     var errorMsg by remember { mutableStateOf<String?>(null) }
-
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         modifier = Modifier.background(Color(0xFF0f172a))
@@ -135,20 +137,20 @@ fun LoginScreen(navController: NavController) {
                     isLoading = true
                     errorMsg = null
 
-                    hacerLoginSimple(
-                        email = email,
-                        password = password,
-                        onResult = { user ->
-                            isLoading = false
-                            println("Login exitoso: ${user?.nombre}")
-                            navController.navigate("home") // o la ruta que quieras
-                        },
-                        onError = { error ->
-                            isLoading = false
-                            errorMsg = error
-                            println("Error de login: $error")
-                        }
-                    )
+                    coroutineScope.launch {
+                        hacerLoginSimple(
+                            email = email,
+                            password = password,
+                            onResult = { user ->
+                                isLoading = false
+                                onLogin(user)
+                            },
+                            onError = { error ->
+                                isLoading = false
+                                errorMsg = error
+                            }
+                        )
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()

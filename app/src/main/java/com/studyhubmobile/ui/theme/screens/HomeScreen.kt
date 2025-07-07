@@ -17,13 +17,13 @@ import androidx.navigation.NavController
 import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
 import com.studyhubmobile.R
-import com.studyhubmobile.session.SessionManager.currentUser
 import com.studyhubmobile.session.SessionManager.logout
-
+import com.studyhubmobile.models.User
+import com.studyhubmobile.MainActivity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, currentUser: User?) {
     var isMenuExpanded by remember { mutableStateOf(false) }
     val menuItems = listOf(
         "Home" to { navController.navigate("home") },
@@ -74,7 +74,7 @@ fun HomeScreen(navController: NavController) {
                     ) {
                         if (currentUser != null) {
                             Text(
-                                text = "Hola, ${currentUser!!.nombre}",
+                                text = "Hola, ${currentUser.nombre}",
                                 color = Color.White,
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(end = 16.dp)
@@ -102,53 +102,56 @@ fun HomeScreen(navController: NavController) {
                             }
                         }
                     }
+                }
 
-
-                    DropdownMenu(
-                        expanded = isMenuExpanded,
-                        onDismissRequest = { isMenuExpanded = false },
-                        modifier = Modifier
-                            .width(200.dp)
-                            .background(Color(0xFF0f172a))
-                    ) {
-                        menuItems.forEach { (text, action) ->
-                            DropdownMenuItem(
-                                text = { Text(text, color = Color.White) },
-                                onClick = {
-                                    action()
+                DropdownMenu(
+                    expanded = isMenuExpanded,
+                    onDismissRequest = { isMenuExpanded = false },
+                    modifier = Modifier
+                        .width(200.dp)
+                        .background(Color(0xFF0f172a))
+                ) {
+                    menuItems.forEach { (text, action) ->
+                        DropdownMenuItem(
+                            text = { Text(text, color = Color.White) },
+                            onClick = {
+                                action()
+                                isMenuExpanded = false
+                            }
+                        )
+                    }
+                    
+                    if (currentUser == null) {
+                        DropdownMenuItem(
+                            text = { Text("Iniciar Sesión", color = Color.White) },
+                            onClick = {
+                                navController.navigate("login")
+                                isMenuExpanded = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Crear Cuenta", color = Color.White) },
+                            onClick = {
+                                navController.navigate("register")
+                                isMenuExpanded = false
+                            }
+                        )
+                    } else {
+                        DropdownMenuItem(
+                            text = { Text("Cerrar Sesión", color = Color.White) },
+                            onClick = {
+                                try {
+                                    val activity = navController.context as MainActivity
+                                    activity.authRepository.currentUser = null
+                                    navController.navigate("login") {
+                                        popUpTo("home") { inclusive = true }
+                                    }
                                     isMenuExpanded = false
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
                                 }
-                            )
-                        }
-                        
-                        // Botones de login y signup
-                        if (currentUser == null) {
-                            DropdownMenuItem(
-                                text = { Text("Iniciar Sesión", color = Color.White) },
-                                onClick = {
-                                    navController.navigate("login")
-                                    isMenuExpanded = false
-                                }
-                            )
-
-                            DropdownMenuItem(
-                                text = { Text("Crear Cuenta", color = Color.White) },
-                                onClick = {
-                                    navController.navigate("register")
-                                    isMenuExpanded = false
-                                }
-                            )
-                        } else {
-                            DropdownMenuItem(
-                                text = { Text("Cerrar Sesión", color = Color.White) },
-                                onClick = {
-                                    logout()
-                                    navController.navigate("login")
-                                    isMenuExpanded = false
-                                }
-                            )
-                        }
-
+                            }
+                        )
                     }
                 }
             }
@@ -171,8 +174,7 @@ fun HomeScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-       
-
+            
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(

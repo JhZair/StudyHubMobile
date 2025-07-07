@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
 import com.studyhubmobile.R
-import com.studyhubmobile.models.UserProfile
+import com.studyhubmobile.models.User
 import com.studyhubmobile.models.UserStats
 import androidx.compose.foundation.clickable
 import androidx.compose.ui.geometry.Offset
@@ -36,10 +36,10 @@ import androidx.compose.ui.unit.IntOffset
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserProfileScreen(
-    user: UserProfile,
+    user: User? = null,
     navController: NavController,
     onLogout: () -> Unit,
-    onUpdateProfile: (UserProfile) -> Unit
+    onUpdateProfile: (User) -> Unit
 ) {
     var showMenu by remember { mutableStateOf(false) }
     val menuItems = listOf(
@@ -137,24 +137,23 @@ fun UserProfileScreen(
                             modifier = Modifier.weight(1f)
                         ) {
                             Text(
-                                text = user.name,
-                                style = MaterialTheme.typography.headlineMedium,
-                                color = Color.White,
+                                text = user?.nombre ?: "Usuario",
+                                fontSize = 24.sp,
                                 fontWeight = FontWeight.Bold
                             )
                             Text(
-                                text = user.email,
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = Color.White.copy(alpha = 0.7f)
+                                text = user?.email ?: "",
+                                fontSize = 16.sp,
+                                color = MaterialTheme.colorScheme.secondary
                             )
                             Text(
-                                text = "Semestre ${user.currentSemester}",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = Color.White.copy(alpha = 0.7f)
+                                text = "Semestre: 1",
+                                fontSize = 16.sp,
+                                color = MaterialTheme.colorScheme.secondary
                             )
                         }
                         IconButton(
-                            onClick = { onUpdateProfile(user) }
+                            onClick = { user?.let { onUpdateProfile(it) } }
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Edit,
@@ -184,13 +183,18 @@ fun UserProfileScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         StatItem(
                             icon = Icons.Default.CheckCircle,
-                            title = "Correctas",
-                            value = user.stats.correctAnswers.toString()
+                            title = "Exámenes",
+                            value = "0"
                         )
                         StatItem(
-                            icon = Icons.Default.Lock,
-                            title = "Total",
-                            value = user.stats.totalQuestions.toString()
+                            icon = Icons.Default.CheckCircle,
+                            title = "Correctas",
+                            value = "0"
+                        )
+                        StatItem(
+                            icon = Icons.Default.CheckCircle,
+                            title = "Promedio",
+                            value = "0.0"
                         )
                     }
                 }
@@ -215,7 +219,7 @@ fun UserProfileScreen(
                         OptionItem(
                             icon = Icons.Default.Edit,
                             title = "Editar perfil",
-                            onClick = { onUpdateProfile(user) }
+                            onClick = { user?.let { onUpdateProfile(it) } }
                         )
                         OptionItem(
                             icon = Icons.Default.Lock,
