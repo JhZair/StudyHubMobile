@@ -22,6 +22,15 @@ import androidx.compose.foundation.border
 import androidx.navigation.NavController
 import androidx.compose.ui.graphics.Color as ComposeColor
 
+// Modelos
+import com.studyhubmobile.models.LoginRequest
+import com.studyhubmobile.models.LoginResponse
+import com.studyhubmobile.models.User
+
+
+import com.studyhubmobile.utils.hacerLoginSimple
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -29,6 +38,8 @@ fun LoginScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
+    var errorMsg by remember { mutableStateOf<String?>(null) }
+
 
     Scaffold(
         modifier = Modifier.background(Color(0xFF0f172a))
@@ -79,26 +90,6 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
-                label = { Text("Nombre de usuario", color = Color.White) },
-                leadingIcon = { Icon(Icons.Default.Person, "person", tint = Color.White) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color(0xFF1e293b),
-                    unfocusedContainerColor = Color(0xFF1e293b),
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White,
-                    focusedLabelColor = Color.White,
-                    unfocusedLabelColor = Color.White
-                )
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
                 label = { Text("Correo electrónico", color = Color.White) },
@@ -141,10 +132,23 @@ fun LoginScreen(navController: NavController) {
 
             Button(
                 onClick = {
-                    // TODO: Implementar lógica de inicio de sesión
                     isLoading = true
-                    // Simular carga
-                    navController.navigate("home")
+                    errorMsg = null
+
+                    hacerLoginSimple(
+                        email = email,
+                        password = password,
+                        onResult = { user ->
+                            isLoading = false
+                            println("Login exitoso: ${user?.nombre}")
+                            navController.navigate("home") // o la ruta que quieras
+                        },
+                        onError = { error ->
+                            isLoading = false
+                            errorMsg = error
+                            println("Error de login: $error")
+                        }
+                    )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -159,6 +163,14 @@ fun LoginScreen(navController: NavController) {
                 } else {
                     Text("Iniciar sesión", color = Color.White)
                 }
+            }
+
+            if (errorMsg != null) {
+                Text(
+                    text = errorMsg!!,
+                    color = Color.Red,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
             }
 
             Spacer(modifier = Modifier.height(16.dp))

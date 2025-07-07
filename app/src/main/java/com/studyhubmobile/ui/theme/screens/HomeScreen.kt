@@ -16,7 +16,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
-import com.studyhubmobile.R 
+import com.studyhubmobile.R
+import com.studyhubmobile.session.SessionManager.currentUser
+import com.studyhubmobile.session.SessionManager.logout
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,29 +72,37 @@ fun HomeScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        TextButton(
-                            onClick = { navController.navigate("login") },
-                            modifier = Modifier
-                                .padding(end = 8.dp)
-                        ) {
+                        if (currentUser != null) {
                             Text(
-                                text = "Login",
+                                text = "Hola, ${currentUser!!.nombre}",
                                 color = Color.White,
-                                fontSize = 16.sp
+                                fontSize = 16.sp,
+                                modifier = Modifier.padding(end = 16.dp)
                             )
-                        }
-                        TextButton(
-                            onClick = { navController.navigate("register") },
-                            modifier = Modifier
-                                .padding(end = 8.dp)
-                        ) {
-                            Text(
-                                text = "Sign Up",
-                                color = Color.White,
-                                fontSize = 16.sp
-                            )
+                        } else {
+                            TextButton(
+                                onClick = { navController.navigate("login") },
+                                modifier = Modifier.padding(end = 8.dp)
+                            ) {
+                                Text(
+                                    text = "Login",
+                                    color = Color.White,
+                                    fontSize = 16.sp
+                                )
+                            }
+                            TextButton(
+                                onClick = { navController.navigate("register") },
+                                modifier = Modifier.padding(end = 8.dp)
+                            ) {
+                                Text(
+                                    text = "Sign Up",
+                                    color = Color.White,
+                                    fontSize = 16.sp
+                                )
+                            }
                         }
                     }
+
 
                     DropdownMenu(
                         expanded = isMenuExpanded,
@@ -111,21 +122,33 @@ fun HomeScreen(navController: NavController) {
                         }
                         
                         // Botones de login y signup
-                        DropdownMenuItem(
-                            text = { Text("Iniciar Sesión", color = Color.White) },
-                            onClick = {
-                                navController.navigate("login")
-                                isMenuExpanded = false
-                            }
-                        )
-                        
-                        DropdownMenuItem(
-                            text = { Text("Crear Cuenta", color = Color.White) },
-                            onClick = {
-                                navController.navigate("register")
-                                isMenuExpanded = false
-                            }
-                        )
+                        if (currentUser == null) {
+                            DropdownMenuItem(
+                                text = { Text("Iniciar Sesión", color = Color.White) },
+                                onClick = {
+                                    navController.navigate("login")
+                                    isMenuExpanded = false
+                                }
+                            )
+
+                            DropdownMenuItem(
+                                text = { Text("Crear Cuenta", color = Color.White) },
+                                onClick = {
+                                    navController.navigate("register")
+                                    isMenuExpanded = false
+                                }
+                            )
+                        } else {
+                            DropdownMenuItem(
+                                text = { Text("Cerrar Sesión", color = Color.White) },
+                                onClick = {
+                                    logout()
+                                    navController.navigate("login")
+                                    isMenuExpanded = false
+                                }
+                            )
+                        }
+
                     }
                 }
             }
