@@ -23,6 +23,7 @@ import kotlinx.serialization.json.Json
 import android.app.AlertDialog
 import kotlinx.coroutines.delay
 import androidx.compose.runtime.LaunchedEffect
+import com.studyhubmobile.session.SessionManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -111,6 +112,36 @@ fun ExamScreen(
     var timeRemaining by remember { mutableStateOf(30 * 60) } // 30 minutos
     var isExamComplete by remember { mutableStateOf(false) }
     var showResults by remember { mutableStateOf(false) }
+    var lastScore by remember { mutableStateOf<Pair<Int, Int>?>(null) } // (correctas, total)
+
+    // Actualizar estadísticas solo una vez al mostrar resultados
+    LaunchedEffect(showResults) {
+        if (showResults && lastScore == null) {
+            // Depuración: imprimir selectedAnswers y respuestas correctas
+            println("selectedAnswers: $selectedAnswers")
+            println("respuestasCorrectas: ${questions.map { it.respuestaCorrecta }}")
+            val correctAnswers = questions.mapIndexed { idx, question ->
+                val seleccion = selectedAnswers.getOrNull(idx)
+                val correcta = question.respuestaCorrecta.toString()
+                println("Pregunta $idx: seleccion=$seleccion, correcta=$correcta")
+                seleccion != null && seleccion.toString() == correcta
+            }.count { it }
+            val totalQuestions = questions.size
+            lastScore = Pair(correctAnswers, totalQuestions)
+            // Actualizar estadísticas
+            val prevStats = SessionManager.userStats
+            val newStats = prevStats.copy(
+                correctAnswers = prevStats.correctAnswers + correctAnswers,
+                totalQuestions = prevStats.totalQuestions + totalQuestions,
+                totalExams = prevStats.totalExams + 1,
+                averageScore = if (prevStats.totalExams + 1 > 0) ((prevStats.averageScore * prevStats.totalExams + (correctAnswers.toFloat() / totalQuestions)) / (prevStats.totalExams + 1)) else 0f
+            )
+            SessionManager.userStats = newStats
+        }
+        if (!showResults) {
+            lastScore = null
+        }
+    }
 
     // Cronómetro
     LaunchedEffect(Unit) {
@@ -267,18 +298,16 @@ fun ExamScreen(
                                 color = MaterialTheme.colorScheme.primary
                             )
 
-                            // Calcular puntaje
-                            val correctAnswers = questions.count { question ->
-                                val questionIndex = questions.indexOf(question)
-                                selectedAnswers[questionIndex] == question.respuestaCorrecta.toInt()
-                            }
+                            // Mostrar puntaje calculado
+                            val score = lastScore ?: Pair(0, questions.size)
                             Text(
-                                text = "Preguntas correctas: $correctAnswers de ${questions.size}",
+                                text = "Preguntas correctas: ${score.first} de ${score.second}",
                                 style = MaterialTheme.typography.titleMedium
                             )
+
                             Button(
-                                onClick = { 
-                                    navController.popBackStack("simulacro", false)
+                                onClick = {
+                                    navController.navigate("simulacro")
                                     showResults = false
                                 },
                                 modifier = Modifier.fillMaxWidth()

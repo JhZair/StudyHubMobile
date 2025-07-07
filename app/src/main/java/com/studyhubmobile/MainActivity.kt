@@ -68,10 +68,12 @@ class MainActivity : ComponentActivity() {
 fun AppNavigation() {
     val navController = rememberNavController()
     var currentUser by remember { mutableStateOf(SessionManager.currentUser) }
+    var userStats by remember { mutableStateOf(SessionManager.userStats) }
 
     LaunchedEffect(Unit) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             currentUser = SessionManager.currentUser
+            userStats = SessionManager.userStats
         }
     }
     
@@ -178,7 +180,8 @@ fun AppNavigation() {
                     user = com.studyhubmobile.models.UserProfile(
                         name = currentUser!!.nombre,
                         email = currentUser!!.email,
-                        currentSemester = 1
+                        currentSemester = 1,
+                        stats = userStats
                     ),
                     navController = navController,
                     onLogout = { navController.navigate("login") },
@@ -189,7 +192,8 @@ fun AppNavigation() {
                     user = com.studyhubmobile.models.UserProfile(
                         name = "Usuario",
                         email = "usuario@email.com",
-                        currentSemester = 1
+                        currentSemester = 1,
+                        stats = userStats
                     ),
                     navController = navController,
                     onLogout = { navController.navigate("login") },
